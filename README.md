@@ -25,7 +25,7 @@ version.
 ```bash
 docker build -t gouvinb/docker-markdownlint:latest -t gouvinb/docker-markdownlint:X.Y.Z .
 docker push gouvinb/docker-markdownlint:latest
-docker push gouvinb/docker-markdownling:X.Y.Z
+docker push gouvinb/docker-markdownlint:X.Y.Z
 ```
 
 ## Feedback
