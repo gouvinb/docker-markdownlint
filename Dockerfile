@@ -1,22 +1,16 @@
-FROM debian:sid
+FROM node:alpine
 
 MAINTAINER gouvinb
 
-ENV VERSION 3.6
-ADD https://www.languagetool.org/download/LanguageTool-$VERSION.zip /LanguageTool-$VERSION.zip
+LABEL "com.gouvinb.docker-markdownlint"="gouvinb" \
+      version="1.0" \
+      description="A Docker image for markdownlint-cli, command Line Interface for MarkdownLint (node js)."
 
-RUN apt update
-RUN apt install -y openjdk-8-jre
-RUN apt install -y unzip
-# RUN rm -rf /var/cache/apk
-RUN unzip LanguageTool-$VERSION.zip
-RUN rm LanguageTool-$VERSION.zip
+RUN apk update
+RUN npm install -g markdownlint-cli
+RUN mkdir /data
 
-COPY entrypoint.sh /LanguageTool-$VERSION/entrypoint.sh
-RUN chmod +x /LanguageTool-$VERSION/entrypoint.sh
+WORKDIR /data
 
-ENV PORT 8888
-
-WORKDIR /LanguageTool-$VERSION
-
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["markdownlint"]
+CMD ["--help"]
